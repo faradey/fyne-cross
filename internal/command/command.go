@@ -252,6 +252,7 @@ func fynePackageHost(ctx Context, image containerImage) (string, error) {
 	if debugging() {
 		log.Debug(fyneCmd)
 	}
+	log.Infof("fyneCmd ctx: %v", ctx)
 	log.Infof("fyneCmd: %v", fyneCmd)
 	err = fyneCmd.Run()
 	if err != nil {
