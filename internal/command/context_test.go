@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/fyne-io/fyne-cross/internal/volume"
+	"github.com/faradey/fyne-cross/internal/volume"
 )
 
 func Test_makeDefaultContext(t *testing.T) {

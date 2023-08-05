@@ -15,9 +15,9 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/fyne-io/fyne-cross/internal/cloud"
-	"github.com/fyne-io/fyne-cross/internal/log"
-	"github.com/fyne-io/fyne-cross/internal/volume"
+	"github.com/faradey/fyne-cross/internal/cloud"
+	"github.com/faradey/fyne-cross/internal/log"
+	"github.com/faradey/fyne-cross/internal/volume"
 )
 
 type kubernetesContainerEngine struct {

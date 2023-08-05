@@ -2,3 +2,4 @@
 /internal/cmd/fyne-cross-s3/fyne-cross-s3
 /*.dmg
 /*.xip
+/.idea

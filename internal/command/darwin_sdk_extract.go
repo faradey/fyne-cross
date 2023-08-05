@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/fyne-io/fyne-cross/internal/log"
-	"github.com/fyne-io/fyne-cross/internal/volume"
+	"github.com/faradey/fyne-cross/internal/log"
+	"github.com/faradey/fyne-cross/internal/volume"
 )
 
 const (

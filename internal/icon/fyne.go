@@ -1,6 +1,6 @@
 /*
 The code into this file has been adapted from
-https://github.com/fyne-io/fyne/blob/v1.2.3/theme/bundled-icons.go
+https://github.com/faradey/fyne/blob/v1.2.3/theme/bundled-icons.go
 The original code was released under the following license:
 
 Copyright (C) 2018 Fyne.io developers (see AUTHORS)

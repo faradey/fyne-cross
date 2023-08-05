@@ -5,8 +5,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/fyne-io/fyne-cross/internal/log"
-	"github.com/fyne-io/fyne-cross/internal/volume"
+	"github.com/faradey/fyne-cross/internal/log"
+	"github.com/faradey/fyne-cross/internal/volume"
 )
 
 const (
@@ -97,7 +97,7 @@ func (cmd *android) Build(image containerImage) (string, error) {
 	// move the dist package into the "dist" folder
 	// The fyne tool sanitizes the package name to be acceptable as a
 	// android package name. For details, see:
-	// https://github.com/fyne-io/fyne/blob/v1.4.0/cmd/fyne/internal/mobile/build_androidapp.go#L297
+	// https://github.com/faradey/fyne/blob/v1.4.0/cmd/fyne/internal/mobile/build_androidapp.go#L297
 	// To avoid to duplicate the fyne tool sanitize logic here, the location of
 	// the dist package to move will be detected using a matching pattern
 	command := fmt.Sprintf("mv %q/*.apk %q",
