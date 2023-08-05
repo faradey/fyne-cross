@@ -177,6 +177,8 @@ func (i *localContainerImage) cmd(vol volume.Volume, opts options, cmdArgs []str
 // Run runs a command in a new container for the specified image
 func (i *localContainerImage) Run(vol volume.Volume, opts options, cmdArgs []string) error {
 	cmd := i.cmd(vol, opts, cmdArgs)
+	log.Infof("[i] cmdArgs: %v", opts)
+	log.Infof("[i] cmdArgs: %v", cmdArgs)
 	log.Debug(cmd)
 	return cmd.Run()
 }
