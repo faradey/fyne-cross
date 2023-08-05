@@ -166,7 +166,8 @@ func (i *localContainerImage) cmd(vol volume.Volume, opts options, cmdArgs []str
 
 	// add the command to execute
 	args = append(args, cmdArgs...)
-
+	log.Infof("[i] i.runner.engine.Binary: %s", i.runner.engine.Binary)
+	log.Infof("[i] args: %v", args)
 	cmd := execabs.Command(i.runner.engine.Binary, args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
