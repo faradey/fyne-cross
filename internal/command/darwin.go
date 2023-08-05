@@ -99,6 +99,7 @@ func (cmd *darwin) Build(image containerImage) (string, error) {
 
 	var packageName string
 	if cmd.defaultContext.Release {
+		log.Infof("cmd.defaultContext.Release")
 		if runtime.GOOS != darwinOS {
 			return "", fmt.Errorf("darwin release build is supported only on darwin hosts")
 		}
@@ -109,11 +110,13 @@ func (cmd *darwin) Build(image containerImage) (string, error) {
 		}
 
 	} else if cmd.localBuild {
+		log.Infof("cmd.localBuild")
 		packageName, err = fynePackageHost(cmd.defaultContext, image)
 		if err != nil {
 			return "", fmt.Errorf("could not package the Fyne app: %v", err)
 		}
 	} else {
+		log.Infof("cmd.defaultContext.else")
 		packageName = fmt.Sprintf("%s.app", cmd.defaultContext.Name)
 
 		err = fynePackage(cmd.defaultContext, image)
