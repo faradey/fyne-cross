@@ -249,10 +249,14 @@ func fynePackageHost(ctx Context, image containerImage) (string, error) {
 	fyneCmd.Stderr = os.Stderr
 	fyneCmd.Env = append(os.Environ(), image.AllEnv()...)
 
+	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
+		fyneCmd.Env = append(fyneCmd.Env, []string{ctx.Metadata["STARTTIME"], ctx.Metadata["EXPIREDAYS"]}...)
+	}
+
 	if debugging() {
 		log.Debug(fyneCmd)
 	}
-	log.Infof("fyneCmd metadata: %v", ctx.Metadata)
+	log.Infof("fyneCmd ctx.Env: %v", ctx.Env)
 	log.Infof("fyneCmd: %v", fyneCmd)
 	err = fyneCmd.Run()
 	if err != nil {
