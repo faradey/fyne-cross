@@ -250,7 +250,7 @@ func fynePackageHost(ctx Context, image containerImage) (string, error) {
 	fyneCmd.Env = append(os.Environ(), image.AllEnv()...)
 
 	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
-		fyneCmd.Env = append(fyneCmd.Env, "GOFLAGS=\"-ldflags=-X=expired.startTime="+ctx.Metadata["STARTTIME"]+" -ldflags=-X=expired.enterprise="+ctx.Metadata["EXPIREDAYS"]+"\"")
+		fyneCmd.Env = append(fyneCmd.Env, "GOFLAGS=\"-ldflags=-X=main.startTime="+ctx.Metadata["STARTTIME"]+" -ldflags=-X=main.enterprise="+ctx.Metadata["EXPIREDAYS"]+"\"")
 	}
 
 	if debugging() {
