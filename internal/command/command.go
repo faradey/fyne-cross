@@ -241,17 +241,17 @@ func fynePackageHost(ctx Context, image containerImage) (string, error) {
 	if ctx.CacheDirHost() != "" {
 		image.SetEnv("GOCACHE", ctx.CacheDirHost())
 	}
+	goflags := ""
+	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
+		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + " -ldflags=-X=main.enterprise=" + ctx.Metadata["EXPIREDAYS"] + "\" "
+	}
 
 	// run the command from the host
-	fyneCmd := execabs.Command("bin/bash", "-c", strings.Join(args, " "))
+	fyneCmd := execabs.Command("/bin/bash", "-c", goflags+strings.Join(args, " "))
 	fyneCmd.Dir = workDir
 	fyneCmd.Stdout = os.Stdout
 	fyneCmd.Stderr = os.Stderr
 	fyneCmd.Env = append(os.Environ(), image.AllEnv()...)
-
-	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
-		fyneCmd.Env = append(fyneCmd.Env, "GOFLAGS=\"-ldflags=-X=main.startTime="+ctx.Metadata["STARTTIME"]+" -ldflags=-X=main.enterprise="+ctx.Metadata["EXPIREDAYS"]+"\"")
-	}
 
 	if debugging() {
 		log.Debug(fyneCmd)
