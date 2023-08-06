@@ -183,7 +183,6 @@ func makeDefaultContext(flags *CommonFlags, args []string) (Context, error) {
 		} else {
 			ctx.Env["GOFLAGS"] = strings.TrimSpace(goflags)
 		}
-		log.Infof("[i] Env: %v", ctx.Env)
 	}
 
 	if flags.Silent {

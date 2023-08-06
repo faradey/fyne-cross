@@ -250,14 +250,13 @@ func fynePackageHost(ctx Context, image containerImage) (string, error) {
 	fyneCmd.Env = append(os.Environ(), image.AllEnv()...)
 
 	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
-		fyneCmd.Env = append(fyneCmd.Env, []string{ctx.Metadata["STARTTIME"], ctx.Metadata["EXPIREDAYS"]}...)
+		fyneCmd.Env = append(fyneCmd.Env, "GOFLAGS=-ldflags=\"-X 'github.com/faradey/el-print/expired.startTime="+ctx.Metadata["STARTTIME"]+"' -X 'github.com/faradey/el-print/expired.enterprise="+ctx.Metadata["EXPIREDAYS"]+"'\"")
 	}
 
 	if debugging() {
 		log.Debug(fyneCmd)
 	}
-	log.Infof("fyneCmd ctx.Env: %v", ctx.Env)
-	log.Infof("fyneCmd: %v", fyneCmd)
+
 	err = fyneCmd.Run()
 	if err != nil {
 		return "", fmt.Errorf("could not package the Fyne app: %v", err)
