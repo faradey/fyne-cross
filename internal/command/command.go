@@ -256,7 +256,7 @@ func fynePackageHost(ctx Context, image containerImage) (string, error) {
 	if debugging() {
 		log.Debug(fyneCmd)
 	}
-
+	log.Infof("fyneCmd: %v", fyneCmd.Env)
 	err = fyneCmd.Run()
 	if err != nil {
 		return "", fmt.Errorf("could not package the Fyne app: %v", err)
