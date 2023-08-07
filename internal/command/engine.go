@@ -76,6 +76,7 @@ func MakeEngine(e string) (Engine, error) {
 		// if "docker" comes from an alias (i.e. "podman-docker") should not contain the "docker" string
 		out, err := execabs.Command(binaryPath, "--version").Output()
 		if err != nil {
+			log.Infof("Docker error: ", err)
 			return Engine{}, fmt.Errorf("could not detect engine version: %s", out)
 		}
 		lout := strings.ToLower(string(out))
