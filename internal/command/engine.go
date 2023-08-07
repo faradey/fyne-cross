@@ -62,6 +62,7 @@ func MakeEngine(e string) (Engine, error) {
 		return Engine{Name: podmanEngine, Binary: binaryPath}, nil
 	case "":
 		binaryPath, err := execabs.LookPath(dockerEngine)
+		log.Infof("Docker error: ", err)
 		if err != nil {
 			// check for podman engine
 			binaryPath, err := execabs.LookPath(podmanEngine)
