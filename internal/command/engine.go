@@ -3,6 +3,8 @@ package command
 import (
 	"errors"
 	"fmt"
+	"github.com/faradey/fyne-cross/internal/log"
+	"os/user"
 	"strings"
 
 	"golang.org/x/sys/execabs"
@@ -38,6 +40,13 @@ func (e Engine) IsKubernetes() bool {
 
 // MakeEngine returns a new container engine. Pass empty string to autodetect
 func MakeEngine(e string) (Engine, error) {
+	currentUser, err := user.Current()
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+
+	username := currentUser.Username
+	log.Infof("User name: ", username)
 	switch e {
 	case dockerEngine:
 		binaryPath, err := execabs.LookPath(dockerEngine)
