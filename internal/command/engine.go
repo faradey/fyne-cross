@@ -61,7 +61,7 @@ func MakeEngine(e string) (Engine, error) {
 		}
 		return Engine{Name: podmanEngine, Binary: binaryPath}, nil
 	case "":
-		binaryPath := "usr/bin/docker"
+		binaryPath := "/usr/bin/docker"
 		/*binaryPath, err := execabs.LookPath(dockerEngine)
 		log.Infof("Docker error: ", err)
 		if err != nil {
