@@ -323,8 +323,13 @@ func fyneReleaseHost(ctx Context, image containerImage) (string, error) {
 		image.SetEnv("GOCACHE", ctx.CacheDirHost())
 	}
 
+	goflags := ""
+	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
+		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + " -ldflags=-X=main.enterprise=" + ctx.Metadata["EXPIREDAYS"] + "\" "
+	}
+
 	// run the command from the host
-	fyneCmd := execabs.Command(args[0], args[1:]...)
+	fyneCmd := execabs.Command("/bin/bash", "-c", goflags+strings.Join(args, " "))
 	fyneCmd.Dir = workDir
 	fyneCmd.Stdout = os.Stdout
 	fyneCmd.Stderr = os.Stderr
