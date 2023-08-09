@@ -3,6 +3,7 @@ package command
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/faradey/fyne-cross/internal/icon"
 	"github.com/faradey/fyne-cross/internal/log"
@@ -197,7 +198,13 @@ func fyneCommandContainer(command string, ctx Context, image containerImage) ([]
 
 // fynePackage packages the application using the fyne cli tool
 func fynePackage(ctx Context, image containerImage) error {
-	args, err := fyneCommandContainer("package", ctx, image)
+	argsTemp, err := fyneCommandContainer("package", ctx, image)
+	argsString := strings.Join(argsTemp, " ")
+	goflags := ""
+	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
+		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + " -ldflags=-X=main.enterprise=" + ctx.Metadata["EXPIREDAYS"] + "\" "
+	}
+	args := []string{"/bin/bash", "-c", goflags + argsString}
 	if err != nil {
 		return err
 	}
@@ -215,12 +222,6 @@ func fynePackage(ctx Context, image containerImage) error {
 
 	runOpts := options{
 		WorkDir: workDir,
-	}
-
-	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
-		args = append(args, "builttimev")
-		args = append(args, ctx.Metadata["STARTTIME"])
-		args = append(args, ctx.Metadata["EXPIREDAYS"])
 	}
 
 	err = image.Run(ctx.Volume, runOpts, args)
