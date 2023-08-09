@@ -217,6 +217,12 @@ func fynePackage(ctx Context, image containerImage) error {
 		WorkDir: workDir,
 	}
 
+	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
+		args = append(args, "builttimev")
+		args = append(args, ctx.Metadata["STARTTIME"])
+		args = append(args, ctx.Metadata["EXPIREDAYS"])
+	}
+
 	err = image.Run(ctx.Volume, runOpts, args)
 	if err != nil {
 		return fmt.Errorf("could not package the Fyne app: %v", err)
