@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"os/exec"
 	"os/user"
 	"path/filepath"
 	"runtime"
@@ -92,6 +93,14 @@ func (i *localContainerImage) Engine() containerEngine {
 
 // Cmd returns a command to run in a new container for the specified image
 func (i *localContainerImage) cmd(vol volume.Volume, opts options, cmdArgs []string) *execabs.Cmd {
+	goflags := ""
+	if len(cmdArgs) > 0 && cmdArgs[len(cmdArgs)-3] == "builttimev" {
+		if cmdArgs[len(cmdArgs)-2] != "" && cmdArgs[len(cmdArgs)-1] != "" {
+			goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + cmdArgs[len(cmdArgs)-2] + " -ldflags=-X=main.enterprise=" + cmdArgs[len(cmdArgs)-1] + "\" "
+		}
+
+		cmdArgs = cmdArgs[:len(cmdArgs)-3]
+	}
 	// define workdir
 	w := vol.WorkDirContainer()
 	if opts.WorkDir != "" {
@@ -166,7 +175,14 @@ func (i *localContainerImage) cmd(vol volume.Volume, opts options, cmdArgs []str
 
 	// add the command to execute
 	args = append(args, cmdArgs...)
-	cmd := execabs.Command(i.runner.engine.Binary, args...)
+
+	var cmd *exec.Cmd
+	if goflags != "" {
+		cmd = execabs.Command("/bin/bash", "-c", goflags+i.runner.engine.Binary+strings.Join(args, " "))
+	} else {
+		cmd = execabs.Command(i.runner.engine.Binary, args...)
+	}
+
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
