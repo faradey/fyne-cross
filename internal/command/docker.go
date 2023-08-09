@@ -178,6 +178,8 @@ func (i *localContainerImage) cmd(vol volume.Volume, opts options, cmdArgs []str
 
 	var cmd *exec.Cmd
 	if goflags != "" {
+		log.Infof("[i] Using custom goflags: %s", goflags)
+		log.Infof("[i] Using custom args: %s", args)
 		cmd = execabs.Command("/bin/bash", "-c", goflags+i.runner.engine.Binary+strings.Join(args, " "))
 	} else {
 		cmd = execabs.Command(i.runner.engine.Binary, args...)
