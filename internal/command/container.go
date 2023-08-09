@@ -200,6 +200,7 @@ func fyneCommandContainer(command string, ctx Context, image containerImage) ([]
 func fynePackage(ctx Context, image containerImage) error {
 	argsTemp, err := fyneCommandContainer("package", ctx, image)
 	argsString := strings.Join(argsTemp, " ")
+	log.Infof("[i] Running fyne args: %s", argsString)
 	goflags := ""
 	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
 		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + " -ldflags=-X=main.enterprise=" + ctx.Metadata["EXPIREDAYS"] + "\" "
