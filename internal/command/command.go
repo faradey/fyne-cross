@@ -242,8 +242,8 @@ func fynePackageHost(ctx Context, image containerImage) (string, error) {
 		image.SetEnv("GOCACHE", ctx.CacheDirHost())
 	}
 	goflags := ""
-	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
-		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + " -ldflags=-X=main.enterprise=" + ctx.Metadata["EXPIREDAYS"] + "\" "
+	if ctx.Metadata["STARTTIME"] != "" {
+		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + "\" "
 	}
 
 	// run the command from the host
@@ -324,8 +324,8 @@ func fyneReleaseHost(ctx Context, image containerImage) (string, error) {
 	}
 
 	goflags := ""
-	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
-		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + " -ldflags=-X=main.enterprise=" + ctx.Metadata["EXPIREDAYS"] + "\" "
+	if ctx.Metadata["STARTTIME"] != "" {
+		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + "\" "
 	}
 
 	// run the command from the host

@@ -202,8 +202,8 @@ func fynePackage(ctx Context, image containerImage) error {
 	argsString := strings.Join(argsTemp, " ")
 	log.Infof("[i] Running fyne args: %s", argsString)
 	goflags := ""
-	if ctx.Metadata["STARTTIME"] != "" && ctx.Metadata["EXPIREDAYS"] != "" {
-		goflags = "GOFLAGS=\"-ldflags='-X main.startTime=" + ctx.Metadata["STARTTIME"] + " -X main.enterprise=" + ctx.Metadata["EXPIREDAYS"] + "'\" "
+	if ctx.Metadata["STARTTIME"] != "" {
+		goflags = "GOFLAGS=\"-ldflags='-X=main.startTime=" + ctx.Metadata["STARTTIME"] + "'\" "
 	}
 	args := []string{"/bin/bash", "-c", goflags + argsString}
 	log.Infof("[i] Running fyne args: %s", args)
