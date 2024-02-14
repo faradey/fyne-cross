@@ -105,20 +105,20 @@ func (cmd *darwin) Build(image containerImage) (string, error) {
 
 		packageName, err = fyneReleaseHost(cmd.defaultContext, image)
 		if err != nil {
-			return "", fmt.Errorf("could not package the Fyne app: %v", err)
+			return "", fmt.Errorf("could not package the Fyne app 333: %v", err)
 		}
 
 	} else if cmd.localBuild {
 		packageName, err = fynePackageHost(cmd.defaultContext, image)
 		if err != nil {
-			return "", fmt.Errorf("could not package the Fyne app: %v", err)
+			return "", fmt.Errorf("could not package the Fyne app 222: %v", err)
 		}
 	} else {
 		packageName = fmt.Sprintf("%s.app", cmd.defaultContext.Name)
 
 		err = fynePackage(cmd.defaultContext, image)
 		if err != nil {
-			return "", fmt.Errorf("could not package the Fyne app: %v", err)
+			return "", fmt.Errorf("could not package the Fyne app 111: %v", err)
 		}
 	}
 
