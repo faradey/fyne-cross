@@ -260,7 +260,7 @@ func fynePackageHost(ctx Context, image containerImage) (string, error) {
 	log.Infof("fyneCmd: %v", fyneCmd.Env)
 	err = fyneCmd.Run()
 	if err != nil {
-		return "", fmt.Errorf("could not package the Fyne app: %v", err)
+		return "", fmt.Errorf("could not package the Fyne app 111: %v", err)
 	}
 
 	return searchLocalResult(volume.JoinPathHost(workDir, "*.app"))
@@ -341,7 +341,7 @@ func fyneReleaseHost(ctx Context, image containerImage) (string, error) {
 
 	err = fyneCmd.Run()
 	if err != nil {
-		return "", fmt.Errorf("could not package the Fyne app: %v", err)
+		return "", fmt.Errorf("could not package the Fyne app 222: %v", err)
 	}
 	return searchLocalResult(volume.JoinPathHost(workDir, "*"+ext))
 }

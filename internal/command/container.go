@@ -228,7 +228,7 @@ func fynePackage(ctx Context, image containerImage) error {
 
 	err = image.Run(ctx.Volume, runOpts, args)
 	if err != nil {
-		return fmt.Errorf("could not package the Fyne app: %v", err)
+		return fmt.Errorf("could not package the Fyne app 333: %v", err)
 	}
 	return nil
 }
@@ -281,7 +281,7 @@ func fyneRelease(ctx Context, image containerImage) error {
 
 	err = image.Run(ctx.Volume, runOpts, args)
 	if err != nil {
-		return fmt.Errorf("could not package the Fyne app: %v", err)
+		return fmt.Errorf("could not package the Fyne app 444: %v", err)
 	}
 	return nil
 }
