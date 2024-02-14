@@ -91,7 +91,7 @@ func (cmd *android) Build(image containerImage) (string, error) {
 		err = fynePackage(cmd.defaultContext, image)
 	}
 	if err != nil {
-		return "", fmt.Errorf("could not package the Fyne app: %v", err)
+		return "", fmt.Errorf("could not package the Fyne app 999: %v", err)
 	}
 
 	// move the dist package into the "dist" folder

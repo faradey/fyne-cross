@@ -89,7 +89,7 @@ func (cmd *freeBSD) Build(image containerImage) (string, error) {
 		err = fynePackage(cmd.defaultContext, image)
 	}
 	if err != nil {
-		return "", fmt.Errorf("could not package the Fyne app: %v", err)
+		return "", fmt.Errorf("could not package the Fyne app01: %v", err)
 	}
 	image.Run(cmd.defaultContext.Volume, options{}, []string{
 		"mv",

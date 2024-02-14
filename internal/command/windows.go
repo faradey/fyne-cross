@@ -94,7 +94,7 @@ func (cmd *windows) Build(image containerImage) (string, error) {
 
 		packageName, err := fyneReleaseHost(cmd.defaultContext, image)
 		if err != nil {
-			return "", fmt.Errorf("could not package the Fyne app: %v", err)
+			return "", fmt.Errorf("could not package the Fyne app04: %v", err)
 		}
 
 		// move the dist package into the expected tmp/$ID/packageName location in the container

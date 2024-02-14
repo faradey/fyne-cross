@@ -75,7 +75,7 @@ func (cmd *web) Build(image containerImage) (string, error) {
 		err = fynePackage(cmd.defaultContext, image)
 	}
 	if err != nil {
-		return "", fmt.Errorf("could not package the Fyne app: %v", err)
+		return "", fmt.Errorf("could not package the Fyne app03: %v", err)
 	}
 
 	// move the dist package into the "tmp" folder

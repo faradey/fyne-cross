@@ -85,7 +85,7 @@ func (cmd *iOS) Build(image containerImage) (string, error) {
 	}
 
 	if err != nil {
-		return "", fmt.Errorf("could not package the Fyne app: %v", err)
+		return "", fmt.Errorf("could not package the Fyne app02: %v", err)
 	}
 
 	// move the dist package into the expected tmp/$ID/packageName location in the container
