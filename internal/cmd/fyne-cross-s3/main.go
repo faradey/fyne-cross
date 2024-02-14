@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fyne-io/fyne-cross/internal/cloud"
+	"github.com/faradey/fyne-cross/internal/cloud"
 	"github.com/urfave/cli/v2"
 )
 

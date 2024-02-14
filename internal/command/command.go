@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fyne-io/fyne-cross/internal/icon"
-	"github.com/fyne-io/fyne-cross/internal/log"
-	"github.com/fyne-io/fyne-cross/internal/volume"
+	"github.com/faradey/fyne-cross/internal/icon"
+	"github.com/faradey/fyne-cross/internal/log"
+	"github.com/faradey/fyne-cross/internal/volume"
 	"golang.org/x/sys/execabs"
 )
 

@@ -95,7 +95,7 @@ jobs:
           - os: web
           
           ## Currently not easily supported from GitHub actions.
-          ## https://github.com/fyne-io/fyne-cross/pull/104#issuecomment-1099494308
+          ## https://github.com/faradey/fyne-cross/pull/104#issuecomment-1099494308
           # - os: ios
           #   args: -app-id calc.sha${{ github.sha }}
           #   host: macos-latest
@@ -177,7 +177,7 @@ jobs:
           # - os: web
           
           ## Currently not easily supported from GitHub actions.
-          ## https://github.com/fyne-io/fyne-cross/pull/104#issuecomment-1099494308
+          ## https://github.com/faradey/fyne-cross/pull/104#issuecomment-1099494308
           # - os: ios
           #   args: -app-id calc.sha${{ github.sha }}
           #   host: macos-latest
