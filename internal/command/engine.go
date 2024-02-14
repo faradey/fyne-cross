@@ -52,7 +52,9 @@ func MakeEngine(e string) (Engine, error) {
 		}
 		return Engine{Name: podmanEngine, Binary: binaryPath}, nil
 	case "":
-		binaryPath, err := execabs.LookPath(dockerEngine)
+		binaryPath := "/usr/bin/docker"
+		/*binaryPath, err := execabs.LookPath(dockerEngine)
+		log.Infof("Docker error: ", err)
 		if err != nil {
 			// check for podman engine
 			binaryPath, err := execabs.LookPath(podmanEngine)
@@ -60,7 +62,7 @@ func MakeEngine(e string) (Engine, error) {
 				return Engine{}, fmt.Errorf("engine binary not found in PATH")
 			}
 			return Engine{Name: podmanEngine, Binary: binaryPath}, nil
-		}
+		}*/
 		// docker binary found, check if it is an alias to podman
 		// if "docker" comes from an alias (i.e. "podman-docker") should not contain the "docker" string
 		out, err := execabs.Command(binaryPath, "--version").Output()
