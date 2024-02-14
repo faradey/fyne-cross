@@ -2,12 +2,10 @@ package command
 
 import (
 	"fmt"
-	"os"
-	"strings"
-
 	"github.com/faradey/fyne-cross/internal/icon"
 	"github.com/faradey/fyne-cross/internal/log"
 	"github.com/faradey/fyne-cross/internal/volume"
+	"os"
 )
 
 const (
@@ -198,15 +196,7 @@ func fyneCommandContainer(command string, ctx Context, image containerImage) ([]
 
 // fynePackage packages the application using the fyne cli tool
 func fynePackage(ctx Context, image containerImage) error {
-	argsTemp, err := fyneCommandContainer("package", ctx, image)
-	argsString := strings.Join(argsTemp, " ")
-	log.Infof("[i] Running fyne args: %s", argsString)
-	goflags := ""
-	if ctx.Metadata["STARTTIME"] != "" {
-		goflags = "GOFLAGS=\"-ldflags=-X=main.startTime=" + ctx.Metadata["STARTTIME"] + "\" "
-	}
-	args := []string{"/bin/bash", "-c", goflags + argsString}
-	log.Infof("[i] Running fyne args: %s", args)
+	args, err := fyneCommandContainer("package", ctx, image)
 	if err != nil {
 		return err
 	}
