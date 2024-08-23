@@ -177,7 +177,7 @@ func (i *localContainerImage) cmd(vol volume.Volume, opts options, cmdArgs []str
 // Run runs a command in a new container for the specified image
 func (i *localContainerImage) Run(vol volume.Volume, opts options, cmdArgs []string) error {
 	cmd := i.cmd(vol, opts, cmdArgs)
-	fmt.Println(cmd)
+	fmt.Println("fyneCMD", cmd)
 	return cmd.Run()
 }
 
