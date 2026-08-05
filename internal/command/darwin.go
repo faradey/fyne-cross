@@ -19,6 +19,12 @@ var (
 	// darwinArchSupported defines the supported target architectures on darwin
 	darwinArchSupported = []Architecture{ArchAmd64, ArchArm64}
 	// darwinImage is the fyne-cross image for the Darwin OS
+	// Go 1.25 calls SecTrustCopyCertificateChain from macOS 12, and the SDK headers no
+	// longer parse against an older deployment target — the Intel build fails outright on
+	// 10.12. Both architectures therefore start at 12.0, which is also what the binary
+	// honestly requires.
+	darwinVersionMin = "12.0"
+
 	darwinImage = "fyneio/fyne-cross-images:v1.3.1-darwin"
 )
 
@@ -212,7 +218,7 @@ func (cmd *darwin) setupContainerImages(flags *darwinFlags, args []string) error
 		var zigTarget string
 		switch arch {
 		case ArchAmd64:
-			minVer := "10.12"
+			minVer := darwinVersionMin
 			if flags.MacOSXVersionMin != "unset" {
 				minVer = flags.MacOSXVersionMin
 			}
@@ -220,7 +226,7 @@ func (cmd *darwin) setupContainerImages(flags *darwinFlags, args []string) error
 			image = runner.createContainerImage(arch, darwinOS, overrideDockerImage(flags.CommonFlags, darwinImage))
 			image.SetEnv("GOARCH", "amd64")
 		case ArchArm64:
-			minVer := "11.1"
+			minVer := darwinVersionMin
 			if flags.MacOSXVersionMin != "unset" {
 				minVer = flags.MacOSXVersionMin
 			}
