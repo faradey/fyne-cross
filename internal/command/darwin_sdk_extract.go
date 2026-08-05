@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	darwinSDKExtractImage  = "fyneio/fyne-cross-images:darwin-sdk-extractor"
+	darwinSDKExtractImage  = "fyneio/fyne-cross-images:v1.3.1-darwin-sdk-extractor"
 	darwinSDKExtractOutDir = "SDKs"
 	darwinSDKExtractScript = "darwin-sdk-extractor.sh"
 )
