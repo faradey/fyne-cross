@@ -92,6 +92,14 @@ func (a *baseEngine) createContainerImageInternal(arch Architecture, OS string, 
 
 	ret := fn(baseContainerImage{arch: arch, os: OS, id: ID, DockerImage: image, env: make(map[string]string), tags: a.tags})
 
+	// The images ship a fixed Go with GOTOOLCHAIN=local, so a go.mod asking for anything
+	// newer fails outright ("go.mod requires go >= 1.25.0 (running go 1.24.6)") and the only
+	// way out is a newer image — which is how a Wayland-linking, darwin-breaking image once
+	// got pulled in just to satisfy a go directive. Letting Go fetch the toolchain the
+	// module asks for decouples the two: the image provides the C toolchain and SDKs, the
+	// module decides its Go version.
+	ret.SetEnv("GOTOOLCHAIN", "auto")
+
 	// mount the working dir
 	ret.SetMount("project", a.vol.WorkDirHost(), a.vol.WorkDirContainer())
 
