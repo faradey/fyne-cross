@@ -138,6 +138,12 @@ type linuxFlags struct {
 	TargetArch *targetArchFlag
 }
 
+// some libraries linked elsewhere rely on specific glibc versions: since Fyne started
+// linking Wayland (glfw 3.4, Fyne 2.8) the image's libxkbcommon needs 2.33/2.38 symbols,
+// and linking fails without this. It raises the glibc available at link time, not the
+// version the produced binary requires — that stays at whatever the code actually calls.
+const glibcTargetVersion = "2.38"
+
 // setupContainerImages returns the command ContainerImages for a linux target
 func (cmd *linux) setupContainerImages(flags *linuxFlags, args []string) error {
 	targetArch, err := targetArchFromFlag(*flags.TargetArch, linuxArchSupported)
@@ -163,24 +169,24 @@ func (cmd *linux) setupContainerImages(flags *linuxFlags, args []string) error {
 		case ArchAmd64:
 			image = runner.createContainerImage(arch, linuxOS, overrideDockerImage(flags.CommonFlags, linuxImageAmd64))
 			image.SetEnv("GOARCH", "amd64")
-			image.SetEnv("CC", "zig cc -target x86_64-linux-gnu -isystem /usr/include -L/usr/lib/x86_64-linux-gnu")
-			image.SetEnv("CXX", "zig c++ -target x86_64-linux-gnu -isystem /usr/include -L/usr/lib/x86_64-linux-gnu")
+			image.SetEnv("CC", "zig cc -target x86_64-linux-gnu."+glibcTargetVersion+" -isystem /usr/include -L/usr/lib/x86_64-linux-gnu")
+			image.SetEnv("CXX", "zig c++ -target x86_64-linux-gnu."+glibcTargetVersion+" -isystem /usr/include -L/usr/lib/x86_64-linux-gnu")
 		case Arch386:
 			image = runner.createContainerImage(arch, linuxOS, overrideDockerImage(flags.CommonFlags, linuxImage386))
 			image.SetEnv("GOARCH", "386")
-			image.SetEnv("CC", "zig cc -target x86-linux-gnu -isystem /usr/include -L/usr/lib/i386-linux-gnu")
-			image.SetEnv("CXX", "zig c++ -target x86-linux-gnu -isystem /usr/include -L/usr/lib/i386-linux-gnu")
+			image.SetEnv("CC", "zig cc -target x86-linux-gnu."+glibcTargetVersion+" -isystem /usr/include -L/usr/lib/i386-linux-gnu")
+			image.SetEnv("CXX", "zig c++ -target x86-linux-gnu."+glibcTargetVersion+" -isystem /usr/include -L/usr/lib/i386-linux-gnu")
 		case ArchArm:
 			image = runner.createContainerImage(arch, linuxOS, overrideDockerImage(flags.CommonFlags, linuxImageArm))
 			image.SetEnv("GOARCH", "arm")
 			image.SetEnv("GOARM", "7")
-			image.SetEnv("CC", "zig cc -target arm-linux-gnueabihf -isystem /usr/include -L/usr/lib/arm-linux-gnueabihf")
-			image.SetEnv("CXX", "zig c++ -target arm-linux-gnueabihf -isystem /usr/include -L/usr/lib/arm-linux-gnueabihf")
+			image.SetEnv("CC", "zig cc -target arm-linux-gnueabihf."+glibcTargetVersion+" -isystem /usr/include -L/usr/lib/arm-linux-gnueabihf")
+			image.SetEnv("CXX", "zig c++ -target arm-linux-gnueabihf."+glibcTargetVersion+" -isystem /usr/include -L/usr/lib/arm-linux-gnueabihf")
 		case ArchArm64:
 			image = runner.createContainerImage(arch, linuxOS, overrideDockerImage(flags.CommonFlags, linuxImageArm64))
 			image.SetEnv("GOARCH", "arm64")
-			image.SetEnv("CC", "zig cc -target aarch64-linux-gnu -isystem /usr/include -L/usr/lib/aarch64-linux-gnu")
-			image.SetEnv("CXX", "zig c++ -target aarch64-linux-gnu -isystem /usr/include -L/usr/lib/aarch64-linux-gnu")
+			image.SetEnv("CC", "zig cc -target aarch64-linux-gnu."+glibcTargetVersion+" -isystem /usr/include -L/usr/lib/aarch64-linux-gnu")
+			image.SetEnv("CXX", "zig c++ -target aarch64-linux-gnu."+glibcTargetVersion+" -isystem /usr/include -L/usr/lib/aarch64-linux-gnu")
 		}
 
 		image.SetEnv("GOOS", "linux")
