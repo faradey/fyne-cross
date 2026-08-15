@@ -69,9 +69,6 @@ func newContainerEngine(context Context) (containerEngine, error) {
 	if context.Engine.IsDocker() || context.Engine.IsPodman() {
 		return newLocalContainerEngine(context)
 	}
-	if context.Engine.IsKubernetes() {
-		return newKubernetesContainerRunner(context)
-	}
 	return nil, fmt.Errorf("unknown engine: '%s'", context.Engine)
 }
 
@@ -163,10 +160,6 @@ func (a *baseContainerImage) Tags() []string {
 
 // goModInit ensure a go.mod exists. If not try to generates a temporary one
 func goModInit(ctx Context, image containerImage) error {
-	if ctx.NoProjectUpload {
-		return nil
-	}
-
 	goModPath := volume.JoinPathHost(ctx.WorkDirHost(), "go.mod")
 	log.Infof("[i] Checking for go.mod: %s", goModPath)
 	_, err := os.Stat(goModPath)

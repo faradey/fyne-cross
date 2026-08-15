@@ -47,11 +47,6 @@ For go >= 1.16:
 go install github.com/faradey/fyne-cross@latest
 ```
 
-To install a fyne-cross with kubernetes engine support:
-```
-go install -tags k8s github.com/faradey/fyne-cross@latest
-```
-
 For older go:
 ```
 GO111MODULE=on go get -u github.com/faradey/fyne-cross
